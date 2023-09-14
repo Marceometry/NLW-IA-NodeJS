@@ -1,4 +1,6 @@
+import 'dotenv/config'
 import { fastify } from 'fastify'
+import { fastifyCors } from '@fastify/cors'
 import {
   createTranscriptionRoute,
   generateAICompletionRoute,
@@ -8,6 +10,8 @@ import {
 
 const PORT = 3333
 const app = fastify()
+
+app.register(fastifyCors, { origin: process.env.FRONTEND_URL })
 
 app.register(getAllPromptsRoute)
 app.register(uploadVideoRoute)
